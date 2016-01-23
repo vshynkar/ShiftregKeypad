@@ -24,8 +24,12 @@ void setup() {
   digitalWrite(CLOCK_PIN, LOW);
   digitalWrite(PLOAD_PIN, HIGH);
 
-  /* Read in and display the pin states at startup.
-  */
+  getKeypadData();
+
+  attachInterrupt(0, getKeypadData, RISING);
+}
+
+void getKeypadData() {
   pinValues = read_shift_regs();
   display_pin_values();
   oldPinValues = pinValues;
@@ -81,17 +85,17 @@ void display_pin_values() {
 }
 
 void loop() {
-  /* Read the state of all zones.
-  */
-  pinValues = read_shift_regs();
+//  /* Read the state of all zones.
+//  */
+//  pinValues = read_shift_regs();
+//
+//  /* If there was a chage in state, display which ones changed.
+//  */
+//  if (pinValues != oldPinValues) {
+//    Serial.print("*Pin value change detected*\r\n");
+//    display_pin_values();
+//    oldPinValues = pinValues;
+//  }
 
-  /* If there was a chage in state, display which ones changed.
-  */
-  if (pinValues != oldPinValues) {
-    Serial.print("*Pin value change detected*\r\n");
-    display_pin_values();
-    oldPinValues = pinValues;
-  }
-
-  delay(POLL_DELAY_MSEC);
+//  delay(POLL_DELAY_MSEC);
 }
